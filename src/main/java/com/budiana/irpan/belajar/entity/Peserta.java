@@ -6,6 +6,7 @@
 package com.budiana.irpan.belajar.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 
 /**
  *
