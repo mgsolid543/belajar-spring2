@@ -1,0 +1,12 @@
+#maven ignore
+.mvn
+mvnw
+mvnw.cmd
+
+target
+
+#Netbeans Ignore
+/nbproject/
+
+#Mac ignore
+.DS_Store
