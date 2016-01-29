@@ -5,9 +5,12 @@
  */
 package com.budiana.irpan.belajar.entity;
 
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -23,4 +26,8 @@ public class Peserta {
     
     @Column(nullable=false, unique=true)
     private String email;
+    
+    @Column(name = "tanggal_lahir", nullable = false)
+    @Temporal(TemporalType.DATE)
+    private Date tanggalLahir;
 }

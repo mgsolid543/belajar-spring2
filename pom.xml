@@ -5,11 +5,11 @@
 
     <groupId>com.budiana.irpan.belajar</groupId>
     <artifactId>aplikasi-belajar</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.5-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>aplikasi-belajar</name>
-    <description>Demo project for Spring Boot</description>
+    <description>Aplikasi Belajar SpringBoot</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -22,6 +22,17 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
     </properties>
+    
+    <pluginRepositories>
+        <pluginRepository>
+            <id>autoincrement-versions-maven-plugin</id>
+            <name>autoincrement-versions-maven-plugin</name>
+            <url>http://autoincrement-versions-maven-plugin.googlecode.com/svn/repo</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
 
     <dependencies>
         <dependency>
@@ -38,6 +49,12 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>4.3.11.Final</version>
+            <type>jar</type>
+        </dependency>
     </dependencies>
 	
     <build>
@@ -46,8 +63,37 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>autoincrement-versions-maven-plugin</artifactId>
+                
+                <executions>
+                    <execution>
+                        <id>update-pom-versions</id>
+                        <goals>
+                            <goal>increment</goal>
+                            <goal>commit</goal>
+                        </goals>
+                        <phase>compile</phase>
+                        <configuration>
+                            <autoIncrementVersion>true</autoIncrementVersion>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>templating-maven-plugin</artifactId>
+                <version>1.0.0</version>
+                <executions>
+                    <execution>
+                        <id>generate-version-class</id>
+                        <goals>
+                            <goal>filter-sources</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
-	
-
 </project>
