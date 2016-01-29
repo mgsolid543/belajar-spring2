@@ -8,11 +8,11 @@ package com.budiana.irpan.belajar.entity;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
@@ -40,5 +40,10 @@ public class Sesi {
     private Materi materi;
     
     @ManyToMany
+    @JoinTable(
+            name = "peserta_pelatihan",
+            joinColumns = @JoinColumn(name = "id_sesi"),
+            inverseJoinColumns = @JoinColumn(name="id_peserta")
+    )
     private List<Peserta> daftarPeserta = new ArrayList<>();
 }
