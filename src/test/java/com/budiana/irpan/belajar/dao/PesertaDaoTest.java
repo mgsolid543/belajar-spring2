@@ -14,10 +14,12 @@ import java.util.Date;
 import javax.sql.DataSource;
 import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
@@ -26,6 +28,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = AplikasiBelajarApplication.class)
+@Sql(
+        executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD,
+        scripts = "/data/peserta.sql"
+)
 public class PesertaDaoTest {
     
     @Autowired
@@ -33,6 +39,19 @@ public class PesertaDaoTest {
     
     @Autowired
     private DataSource ds;
+    
+    @Before
+    public void insertSampleData() {
+        
+    }
+    
+    @After
+    public void hapusData() throws Exception{
+        String sql = "delete from peserta where email = 'peserta01@gmail.com'";
+        try (Connection c = ds.getConnection()) {
+            c.createStatement().executeUpdate(sql);
+        }
+    }
     
     @Test
     public void testInsert() throws SQLException {
@@ -70,11 +89,4 @@ public class PesertaDaoTest {
         Assert.assertNull(px);
     }
     
-    @After
-    public void hapusData() throws Exception{
-        String sql = "delete from peserta where email = 'peserta01@gmail.com'";
-        try (Connection c = ds.getConnection()) {
-            c.createStatement().executeUpdate(sql);
-        }
-    }
 }
