@@ -36,9 +36,9 @@ public class Materi {
     private String nama;
 
     @OneToMany(
-            cascade = CascadeType.ALL,
-            orphanRemoval = true,
-            mappedBy = "materi"
+        cascade = CascadeType.ALL,
+        orphanRemoval = true,
+        mappedBy = "materi"
     )
     private List<Sesi> daftarSesi = new ArrayList<>();
 }
