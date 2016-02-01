@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
 import javax.sql.DataSource;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -51,6 +52,14 @@ public class PesertaDaoTest {
             Long jumlahRow = rs.getLong("jumlah");
             Assert.assertEquals(1L, jumlahRow.longValue());
             c.close();
+        }
+    }
+    
+    @After
+    public void hapusData() throws Exception{
+        String sql = "delete from peserta where email = 'peserta01@gmail.com'";
+        try (Connection c = ds.getConnection()) {
+            c.createStatement().executeUpdate(sql);
         }
     }
 }
