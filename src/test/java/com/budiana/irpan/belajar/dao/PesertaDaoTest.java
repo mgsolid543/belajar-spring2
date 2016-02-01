@@ -42,8 +42,6 @@ public class PesertaDaoTest {
         p.setTanggalLahir(new Date());
         
         pd.save(p);
-        
-        
         String sql = "select count(*) as jumlah from peserta where email = 'peserta01@gmail.com'";
         try (Connection c = ds.getConnection()) {
             ResultSet rs = c.createStatement().executeQuery(sql);
@@ -53,6 +51,23 @@ public class PesertaDaoTest {
             Assert.assertEquals(1L, jumlahRow.longValue());
             c.close();
         }
+    }
+    
+    @Test
+    public void testHitung(){
+        Long jumlah = pd.count();
+        Assert.assertEquals(3L, jumlah.longValue());
+    }
+    
+    @Test 
+    public void testCariById(){
+        Peserta p = pd.findOne("a1");
+        Assert.assertNotNull(p);
+        Assert.assertEquals("Peserta Test 1", p.getNama());
+        Assert.assertEquals("peserta.test1@gmail.com", p.getEmail());
+        
+        Peserta px = pd.findOne("xx");
+        Assert.assertNull(px);
     }
     
     @After
