@@ -52,4 +52,11 @@ public class PesertaController {
         return pd.findOne(id);
     }
     
+    @RequestMapping(value="/peserta/{id}", method = RequestMethod.DELETE)
+    @ResponseStatus(HttpStatus.OK)
+    public void hapusPeserta(@PathVariable("id") String id) {
+        pd.delete(id);
+    }
+    
+    
 }
