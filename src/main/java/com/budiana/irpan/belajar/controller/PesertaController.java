@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -48,8 +49,13 @@ public class PesertaController {
     
     @RequestMapping(value="/peserta/{id}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
-    public Peserta cariPesertaById(@PathVariable("id") String id) {
-        return pd.findOne(id);
+    public ResponseEntity<Peserta> cariPesertaById(@PathVariable("id") String id) {
+        
+        Peserta hasil = pd.findOne(id);
+        if (hasil == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<Peserta>(hasil, HttpStatus.OK);
     }
     
     @RequestMapping(value="/peserta/{id}", method = RequestMethod.DELETE)
